@@ -1,0 +1,8 @@
+{
+  "name": "1STThamer Almaqhawi Portfolio",
+  "description": "Portfolio of Thamer Almaqhawi — Computer Science student at KFUPM and builder of digital systems.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
