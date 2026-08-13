@@ -3,6 +3,7 @@ import { X, Send, Sparkles, User, Bot, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChatMessage } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { getClientAIResponse } from '../utils/knowledgeBase';
 
 interface ChatDrawerProps {
   isOpen: boolean;
@@ -56,19 +57,20 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen, onClose }) => {
       const botMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.reply || "Thamer is a Computer Science student at KFUPM passionate about backend engineering and AI. Feel free to connect via email at thamer5800@gmail.com!",
+        content: data.reply || getClientAIResponse(userMsgText),
         timestamp: new Date()
       };
 
       setMessages(prev => [...prev, botMessage]);
     } catch (err) {
-      console.error(err);
+      console.warn("API server unavailable (e.g. GitHub Pages static host), using local intelligence engine:", err);
+      const fallbackReply = getClientAIResponse(userMsgText);
       setMessages(prev => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: "Thamer is a Computer Science student at KFUPM. You can reach out directly via email at thamer5800@gmail.com or on LinkedIn!",
+          content: fallbackReply,
           timestamp: new Date()
         }
       ]);
